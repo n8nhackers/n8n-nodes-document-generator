@@ -1,0 +1,16 @@
+{
+  "node": "n8n-nodes-document-generator.DocumentGenerator",
+  "nodeVersion": "1.1",
+  "codexVersion": "1.0",
+  "categories": ["Utility"],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://github.com/n8nhackers/n8n-nodes-document-generator"
+      }
+    ]
+  },
+  "alias": [
+    "Generate"
+  ]
+}

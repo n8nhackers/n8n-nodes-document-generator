@@ -1,0 +1,24 @@
+name: Feature Request
+description: Suggest an idea for this project
+labels: [enhancement]
+assignees:
+  - mcolomer
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Describe the function you would like to have
+      description: A clear and concise description of what you want to happen.
+      placeholder: The description of the function.
+    validations:
+      required: true
+  - type: textarea
+    id: alternative-solution
+    attributes:
+      label: Describe your current alternative solution.
+      description: Your current solution that you use, if there is one.
+      placeholder: Your alternative solution.

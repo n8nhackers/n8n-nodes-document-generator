@@ -1,0 +1,262 @@
+import * as Handlebars from 'handlebars';
+import * as iconv from 'iconv-lite';
+import { IExecuteFunctions } from 'n8n-core';
+import {
+  IBinaryKeyData,
+  IDataObject,
+  INodeExecutionData,
+  INodeType,
+  INodeTypeDescription,
+} from 'n8n-workflow';
+
+/**
+ * A node which allows you to generate documents by templates.
+ */
+export class DocumentGenerator implements INodeType {
+  description: INodeTypeDescription = {
+    displayName: 'DocumentGenerator',
+    name: 'DocumentGenerator',
+    icon: 'file:DocumentGenerator.svg',
+    group: ['transform'],
+    version: 1,
+    subtitle: '',
+    //description: 'Render data using templates and save to TEXT, HTML, PDF or PNG files',
+    description: 'Render data using a Handlebars template',
+    defaults: {
+      name: 'DocumentGenerator',
+    },
+    inputs: ['main'],
+    outputs: ['main'],
+    credentials: [],
+    // Basic node details will go here
+    properties: [
+      // Resources and operations will go here
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        options: [
+          {
+            name: 'Render Template',
+            value: 'render',
+            description: 'Render a text template',
+            action: 'Render a text template',
+          },
+        ],
+        default: 'render',
+        noDataExpression: true,
+        required: true,
+      },
+      {
+        displayName: 'Render All Items with One Template',
+        name: 'oneTemplate',
+        type: 'boolean',
+        default: false, // Initial state of the toggle
+        description:
+          'Whether to render all input items using the sample template.\nSyntax: {{#each items}}{{columnname}}{{/each}}.\nOtherwise, every item has its own template',
+        displayOptions: {
+          // the resources and operations to display this element with
+          show: {
+            operation: ['render'],
+          },
+        },
+      },
+      {
+        displayName: 'Template String',
+        name: 'template',
+        type: 'string',
+        required: true,
+        typeOptions: {
+          rows: 5,
+          alwaysOpenEditWindow: true,
+        },
+        displayOptions: {
+          show: {
+            operation: ['render'],
+          },
+        },
+        default: '',
+        placeholder: '{{handlebars template}}',
+        description:
+          'The template string to use for rendering. Please check the <a href="https://handlebarsjs.com/guide/expressions.html#basic-usage">official page</a> for Handlebars syntax.',
+      },
+
+      /*
+      {
+        displayName: 'Use External Template',
+        name: 'externalTemplate',
+        type: 'boolean',
+        default: false, // Initial state of the toggle
+        description:
+          'Whether to use a template published in internet. We cache the template locally to avoid downloading it in the future.',
+        displayOptions: {
+          // the resources and operations to display this element with
+          show: {
+            operation: ['render'],
+          },
+        },
+      },
+      {
+        displayName: 'Template String',
+        name: 'template',
+        type: 'string',
+        required: true,
+        typeOptions: {
+          rows: 5,
+          alwaysOpenEditWindow: true,
+        },
+        displayOptions: {
+          show: {
+            externalTemplate: [false],
+          },
+        },
+        default: '',
+        placeholder: '{{handlebars template}}',
+        description:
+          'The template string to use for rendering. Please check the <a href="https://handlebarsjs.com/guide/expressions.html#basic-usage">official page</a> for Handlebars syntax.',
+      },
+      /*
+      {
+        displayName: 'Template URL',
+        name: 'url',
+        type: 'string',
+        required: true,
+        displayOptions: {
+          show: {
+            externalTemplate: [true],
+          },
+        },
+        default: '',
+        placeholder: 'https://mydomain/my-handlebars-template.hbs',
+        description:
+          'The text file URL (it could be an API endpoint also) to use for rendering. Please check the <a href="https://handlebarsjs.com/guide/expressions.html#basic-usage">official page</a> for Handlebars syntax.',
+      },*/
+      /*
+      {
+        displayName: 'Generate Binary',
+        name: 'binary',
+        type: 'boolean',
+        default: false, // Initial state of the toggle
+        description: 'Whether to generate a binary entry with the rendered template',
+        displayOptions: {
+          // the resources and operations to display this element with
+          show: {
+            operation: ['render'],
+          },
+        },
+      },
+      {
+        displayName: 'File Type',
+        name: 'fileType',
+        type: 'options',
+        options: [
+          {
+            name: 'HTML',
+            value: 'html',
+            description: 'Generates an HTML binary entry',
+            action: 'Generates an HTML binary entry',
+          },
+          {
+            name: 'TEXT',
+            value: 'text',
+            description: 'Generates an TEXT binary entry',
+            action: 'Generates an TEXT binary entry',
+          },
+          /*
+          {
+            name: 'PDF',
+            value: 'pdf',
+            description: 'Generates a PDF binary entry',
+            action: 'Generates a PDF binary entry',
+          },
+          {
+            name: 'PNG',
+            value: 'png',
+            description: 'Generates a PNG binary entry',
+            action: 'Generates a PNG binary entry',
+          },
+        ],
+        displayOptions: {
+          // the resources and operations to display this element with
+          show: {
+            binary: [true],
+          },
+        },
+        default: 'html',
+        noDataExpression: true,
+        required: true,
+      },*/
+    ],
+  };
+  // The execute method will go here
+  async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+    const items = this.getInputData();
+    const returnData = [];
+
+    let newItemJson: IDataObject = {};
+    const newItemBinary: IBinaryKeyData = {};
+
+    const operation = this.getNodeParameter('operation', 0) as string;
+    const template = this.getNodeParameter('template', 0) as string;
+    //const urlTemplate = this.getNodeParameter('url', 0) as string;
+    const oneTemplate = this.getNodeParameter('oneTemplate', 0) as boolean;
+    //const externalTemplate = this.getNodeParameter('externalTemplate', 0) as boolean;
+    const binary = false;//this.getNodeParameter('binary', 0) as boolean;
+    const fileType = '';//this.getNodeParameter('fileType', 0) as string;
+
+    const templateHelper = Handlebars.compile(template);
+    /*
+    if (externalTemplate) {
+      if (urlTemplate) {
+        var url =
+        templateHelper = Handlebars.compile(template);
+
+      }
+    } else {
+      templateHelper = Handlebars.compile(template);
+    }*/
+
+    if (oneTemplate) {
+      var cleanedItems = items.map(function (item) {
+        return item.json;
+      });
+      newItemJson = {
+        text: templateHelper({ items: cleanedItems }),
+      };
+      returnData.push({ json: newItemJson });
+    } else {
+      for (let item of items) {
+        if (operation === 'render') {
+          // Get email input
+          // Get additional fields input
+          var rendered = templateHelper(item.json);
+          newItemJson = {
+            text: rendered,
+          };
+          /*
+          var filename = 'file.html';
+          var mime = 'text/html';
+          if (fileType === 'text') {
+            filename = 'file.txt';
+            mime = 'text/plain';
+          }
+
+          if (binary) {
+            newItemBinary.data = await this.helpers.prepareBinaryData(
+              iconv.encode(rendered, 'utf8'),
+              filename,
+              mime,
+            );
+          }*/
+          returnData.push({
+            json: newItemJson,
+            binary: Object.keys(newItemBinary).length === 0 ? undefined : newItemBinary,
+          });
+        }
+      }
+    }
+
+    // Map data to n8n data structure
+    return this.prepareOutputData(returnData);
+  }
+}
