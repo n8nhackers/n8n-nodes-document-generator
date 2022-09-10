@@ -7,8 +7,8 @@
     "workflow",
     "n8n-community-node-package",
     "document generator",
-    "handlebars"
-    "n8n hackers",
+    "handlebars",
+    "n8n hackers"
   ],
   "main": "index.js",
   "scripts": {
