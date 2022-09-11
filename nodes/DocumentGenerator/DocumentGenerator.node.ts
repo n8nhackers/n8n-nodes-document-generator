@@ -1,5 +1,5 @@
 import * as Handlebars from 'handlebars';
-import * as iconv from 'iconv-lite';
+//import * as iconv from 'iconv-lite';
 import { IExecuteFunctions } from 'n8n-core';
 import {
   IBinaryKeyData,
@@ -201,8 +201,8 @@ export class DocumentGenerator implements INodeType {
     //const urlTemplate = this.getNodeParameter('url', 0) as string;
     const oneTemplate = this.getNodeParameter('oneTemplate', 0) as boolean;
     //const externalTemplate = this.getNodeParameter('externalTemplate', 0) as boolean;
-    const binary = false;//this.getNodeParameter('binary', 0) as boolean;
-    const fileType = '';//this.getNodeParameter('fileType', 0) as string;
+    //const binary = false; //this.getNodeParameter('binary', 0) as boolean;
+    //const fileType = ''; //this.getNodeParameter('fileType', 0) as string;
 
     const templateHelper = Handlebars.compile(template);
     /*
@@ -225,7 +225,8 @@ export class DocumentGenerator implements INodeType {
       };
       returnData.push({ json: newItemJson });
     } else {
-      for (let item of items) {
+      for (let i = 0; i < items.length; i++) {
+        let item = items[i];
         if (operation === 'render') {
           // Get email input
           // Get additional fields input
@@ -250,6 +251,9 @@ export class DocumentGenerator implements INodeType {
           }*/
           returnData.push({
             json: newItemJson,
+            pairedItem: {
+              item: i,
+            },
             binary: Object.keys(newItemBinary).length === 0 ? undefined : newItemBinary,
           });
         }

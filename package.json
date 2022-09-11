@@ -1,14 +1,17 @@
 {
   "name": "n8n-nodes-document-generator",
-  "version": "0.0.1",
-  "description": "This node renders invoices or lists with Handlebars",
+  "version": "0.0.2",
+  "description": "This node renders Handlebars templates for documents or emails",
   "keywords": [
     "n8n",
     "workflow",
     "n8n-community-node-package",
     "document generator",
     "handlebars",
-    "n8n hackers"
+    "n8n hackers",
+    "html generator",
+    "pdf generator",
+    "email generator"
   ],
   "main": "index.js",
   "scripts": {
