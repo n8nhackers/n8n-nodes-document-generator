@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-document-generator",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "This node renders Handlebars templates for documents or emails",
   "keywords": [
     "n8n",
