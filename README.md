@@ -28,6 +28,7 @@ The node can solve multiple use cases when creating content like:
 * Static HTML pages
 * WordPress posts
 * Telegram/Slack messages
+
 The sky is your limit!
 
 Just follow the next samples to create your dynamic content and forget to use SET, FUNCTION or FUNCTION ITEM nodes.
