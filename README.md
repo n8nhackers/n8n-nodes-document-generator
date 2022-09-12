@@ -1,23 +1,42 @@
+![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+
 # n8n-nodes-document-generator
 
-[n8n Node](https://docs.n8n.io/integrations/) connected with Handlebars
+This is an n8n community node. It helps you to create dynamic content using your input items, and:
+* Create one content with all input items.
+* Create one content per input item.
 
-## Implemented operations
-* Render all input items in one template
-* Render one input item per template
+If you have any questions or remarks please [contact me](mailto:contact@n8nhackers.com).
+
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
+
+## Installation
+
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+
+## Compatibility
+
+This node was developed and tested with version 0.193.5 of n8n.
 
 ## Dependencies
-If you install this node, n8n will install automatically next extra npm packages:
+If you install this node, n8n will install automatically the next extra npm packages:
 * handlebars: required to work with Handlebars templates
 
-## Samples
+## Usage
+The node can solve multiple use cases when creating content like:
+* Email generation (HTML or TEXT)
+* Static HTML pages
+* WordPress posts
+* Telegram/Slack messages
+The sky is your limit!
+
+Just follow the next samples to create your dynamic content and forget to use SET, FUNCTION or FUNCTION ITEM nodes.
 
 ### All input items in one template
 
 #### Cases
 * You want to send a list of recent news about n8n.
 * You want to send the list of the customers created in the last hour in your database.
-
 
 #### Template
 Supposing that you have a customer list in JSON:
