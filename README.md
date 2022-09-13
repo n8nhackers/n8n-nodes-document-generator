@@ -23,7 +23,7 @@ If you install this node, n8n will install automatically the next extra npm pack
 * handlebars: required to work with Handlebars templates
 
 ## Workflow sample
-You can find a [workflow sample](https://app.n8n.io/workflows/1790) in the official website.
+You can find a [workflow sample](https://app.n8n.io/workflows/1790) iusing this node in the n8n website.
 ![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
 
 ## Usage
