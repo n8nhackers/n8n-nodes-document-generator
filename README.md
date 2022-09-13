@@ -10,6 +10,10 @@ If you have any questions or remarks please [contact me](mailto:contact@n8nhacke
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
+## TL;DR
+You can find a [workflow sample](https://app.n8n.io/workflows/1790) using this node in the n8n website.
+![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
+
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
@@ -21,10 +25,6 @@ This node was developed and tested with version 0.193.5 of n8n.
 ## Dependencies
 If you install this node, n8n will install automatically the next extra npm packages:
 * handlebars: required to work with Handlebars templates
-
-## Workflow sample
-You can find a [workflow sample](https://app.n8n.io/workflows/1790) using this node in the n8n website.
-![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
 
 ## Usage
 The node can solve multiple use cases when creating content like:
