@@ -11,7 +11,7 @@ If you have any questions or remarks please [contact me](mailto:contact@n8nhacke
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 ## TL;DR
-You can find a [workflow](https://app.n8n.io/workflows/1790) in the n8n official website.
+Don't want to read? Import this [workflow](https://app.n8n.io/workflows/1790) from the n8n official website.
 ![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
 
 ## Installation
