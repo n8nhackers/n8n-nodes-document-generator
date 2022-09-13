@@ -130,7 +130,10 @@ Total invoice: 133.10€
 
 I recommend using this method if you want to send multiple invoices.
 
-## Doubts
+## Workflow sample
+You can find a [official page](https://app.n8n.io/workflows/1790) at the official n8n site to check this node.
+
+## Doubts about templates syntax
 Please, check the [official page](https://handlebarsjs.com/guide/expressions.html#basic-usage) to review all the existing expressions in Handlebars.
 
 ## Another way to try it out
