@@ -1,5 +1,5 @@
 {
-  "name": "@n8nhackers/n8n-nodes-document-generator",
+  "name": "n8n-nodes-document-generator",
   "version": "0.1.1",
   "description": "This node renders Handlebars templates for documents or emails",
   "keywords": [
