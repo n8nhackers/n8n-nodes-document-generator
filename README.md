@@ -22,6 +22,10 @@ This node was developed and tested with version 0.193.5 of n8n.
 If you install this node, n8n will install automatically the next extra npm packages:
 * handlebars: required to work with Handlebars templates
 
+## Workflow sample
+You can find a [workflow sample](https://app.n8n.io/workflows/1790) in the official website.
+![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
+
 ## Usage
 The node can solve multiple use cases when creating content like:
 * Email generation (HTML or TEXT)
@@ -129,9 +133,6 @@ Total invoice: 133.10€
 ```
 
 I recommend using this method if you want to send multiple invoices.
-
-## Workflow sample
-You can test the node using this [workflow sample](https://app.n8n.io/workflows/1790).
 
 ## Doubts about templates syntax
 Please, check the [official page](https://handlebarsjs.com/guide/expressions.html#basic-usage) to review all the existing expressions in Handlebars.
