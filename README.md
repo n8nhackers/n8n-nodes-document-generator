@@ -164,7 +164,7 @@ npm install
 npm install n8n
 
 # "Install" the locally published module
-npm link @n8nhackers/n8n-nodes-document-generator
+npm link n8n-nodes-document-generator
 
 # Start n8n
 npx n8n
