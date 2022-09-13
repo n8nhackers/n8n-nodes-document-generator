@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-document-generator",
+  "name": "@n8nhackers/n8n-nodes-document-generator",
   "version": "0.1.0",
   "description": "This node renders Handlebars templates for documents or emails",
   "keywords": [
@@ -36,11 +36,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/n8nhackers/n8n-nodes-document-generator"
+    "url": "git+https://github.com/n8nhackers/n8n-nodes-document-generator.git"
   },
-  "author": {
-    "name": "mcolomer"
-  },
+  "author": "mcolomer",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/n8nhackers/n8n-nodes-document-generator/issues"
