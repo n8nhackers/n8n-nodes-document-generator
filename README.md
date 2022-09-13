@@ -31,7 +31,7 @@ The node can solve multiple use cases when creating content like:
 
 The sky is your limit!
 
-Just follow the next samples to create your dynamic content and forget to use SET, FUNCTION or FUNCTION ITEM nodes.
+Just follow the next samples to create your dynamic content and forget to use SET, FUNCTION, or FUNCTION ITEM nodes.
 
 ### All input items in one template
 
@@ -131,7 +131,7 @@ Total invoice: 133.10€
 I recommend using this method if you want to send multiple invoices.
 
 ## Workflow sample
-You can find a [official page](https://app.n8n.io/workflows/1790) at the official n8n site to check this node.
+You can test the node using this [workflow sample](https://app.n8n.io/workflows/1790).
 
 ## Doubts about templates syntax
 Please, check the [official page](https://handlebarsjs.com/guide/expressions.html#basic-usage) to review all the existing expressions in Handlebars.
