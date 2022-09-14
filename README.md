@@ -143,6 +143,9 @@ Please, check the [official page](https://handlebarsjs.com/guide/expressions.htm
 
 Clone the n8n-nodes-document-generator repository and execute:
 ```
+# Use v16.17.0 = lts/gallium
+nvm use lts/gallium
+
 # Install dependencies
 npm install
 
