@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-document-generator",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Miquel Colomer",
     "email": "miquel@n8nhackers.com"
