@@ -1,11 +1,11 @@
 {
   "name": "n8n-nodes-document-generator",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": {
     "name": "Miquel Colomer",
     "email": "miquel@n8nhackers.com"
   },
-  "description": "This node renders Handlebars templates for documents or emails",
+  "description": "This node creates dynamic content for documents or emails with Handlebars templates",
   "keywords": [
     "n8n",
     "workflow",

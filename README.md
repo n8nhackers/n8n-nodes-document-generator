@@ -2,16 +2,16 @@
 
 # n8n-nodes-document-generator
 
-This is an n8n community node. It helps you to create dynamic content using your input items, and:
-* Create one content with all input items.
-* Create one content per input item.
+This is an n8n community node. It helps you to create:
+* One dynamic content per all input items.
+* One dynamic content per input item.
 
 If you have any questions or remarks please [contact me](mailto:contact@n8nhackers.com).
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 ## TL;DR
-Don't want to read? Import this [workflow](https://app.n8n.io/workflows/1790) from the n8n official website and test this node with random samples.
+Don't want to read? Import a [sample workflow](https://app.n8n.io/workflows/1790) to test this node with random samples.
 ![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
 
 ## Installation
