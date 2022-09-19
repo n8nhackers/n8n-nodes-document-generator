@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-document-generator",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "author": {
     "name": "Miquel Colomer",
     "email": "miquel@n8nhackers.com"
@@ -25,7 +25,8 @@
     "prepare": "npm run build",
     "dev": "tsc --watch",
     "format": "prettier nodes credentials --write",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "publish": "npm publish --access public"
   },
   "prettier": "eslint-config-n8n-nodes-base/prettierrc",
   "files": [

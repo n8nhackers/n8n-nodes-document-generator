@@ -187,6 +187,6 @@ Nodes by [automatewithn8n.com](https://automatewithn8n.com). For productive use 
 
 Special thanks to [N8n nodemation](https://n8n.io) workflow automation by Jan Oberhauser.
 
-## License
+# License
 
 [MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
