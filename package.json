@@ -21,11 +21,15 @@
   "scripts": {
     "lint": "eslint nodes credentials package.json --no-error-on-unmatched-pattern",
     "lint:fix": "eslint nodes credentials package.json --no-error-on-unmatched-pattern --fix",
+    "link": "npm link",
+    "link:n8n": "cd ~/.n8n/nodes/node_modules && npm link n8n-nodes-document-generator",
+    "unlink:n8n": "cd ~/.n8n/nodes/node_modules && npm unlink n8n-nodes-document-generator",
     "build": "tsc && gulp build:icons",
     "prepare": "npm run build",
     "dev": "tsc --watch",
     "format": "prettier nodes credentials --write",
     "tsc": "tsc",
+    "n8n:start": "n8n start --tunnel",
     "publish": "npm publish --access public"
   },
   "prettier": "eslint-config-n8n-nodes-base/prettierrc",
