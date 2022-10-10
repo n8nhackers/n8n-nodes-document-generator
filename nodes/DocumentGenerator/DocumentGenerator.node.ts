@@ -80,7 +80,34 @@ export class DocumentGenerator implements INodeType {
         description:
           'The template string to use for rendering. Please check the <a href="https://handlebarsjs.com/guide/expressions.html#basic-usage">official page</a> for Handlebars syntax.',
       },
-
+      {
+        displayName: 'Define a Custom Output Key',
+        name: 'customOutputKey',
+        type: 'boolean',
+        default: false, // Initial state of the toggle
+        description:
+          'Whether to define a custom output key instead of the default "text" property',
+        displayOptions: {
+          // the resources and operations to display this element with
+          show: {
+            operation: ['render'],
+          },
+        },
+      },
+      {
+        displayName: 'Output Key',
+        name: 'outputKey',
+        type: 'string',
+        required: true,
+        displayOptions: {
+          show: {
+            customOutputKey: [true],
+          },
+        },
+        default: '',
+        placeholder: 'text',
+        description: 'The output property name where we save rendered text',
+      },
       /*
       {
         displayName: 'Use External Template',
@@ -193,13 +220,13 @@ export class DocumentGenerator implements INodeType {
     const items = this.getInputData();
     const returnData = [];
 
-    let newItemJson: IDataObject = {};
     const newItemBinary: IBinaryKeyData = {};
 
     const operation = this.getNodeParameter('operation', 0) as string;
     const template = this.getNodeParameter('template', 0) as string;
     //const urlTemplate = this.getNodeParameter('url', 0) as string;
     const oneTemplate = this.getNodeParameter('oneTemplate', 0) as boolean;
+    const customOutputKey = this.getNodeParameter('customOutputKey', 0) as boolean;
     //const externalTemplate = this.getNodeParameter('externalTemplate', 0) as boolean;
     //const binary = false; //this.getNodeParameter('binary', 0) as boolean;
     //const fileType = ''; //this.getNodeParameter('fileType', 0) as string;
@@ -216,24 +243,27 @@ export class DocumentGenerator implements INodeType {
       templateHelper = Handlebars.compile(template);
     }*/
 
+    let key = 'text';
+    if (customOutputKey) {
+      key = this.getNodeParameter('outputKey', 0) as string;
+    }
+    
     if (oneTemplate) {
       var cleanedItems = items.map(function (item) {
         return item.json;
       });
-      newItemJson = {
-        text: templateHelper({ items: cleanedItems }),
-      };
+      let newItemJson: IDataObject = {};
+      newItemJson[key] = templateHelper({ items: cleanedItems });
       returnData.push({ json: newItemJson });
     } else {
       for (let i = 0; i < items.length; i++) {
         let item = items[i];
         if (operation === 'render') {
+          let newItemJson: IDataObject = {};
           // Get email input
           // Get additional fields input
           var rendered = templateHelper(item.json);
-          newItemJson = {
-            text: rendered,
-          };
+          newItemJson[key] = rendered;
           /*
           var filename = 'file.html';
           var mime = 'text/html';
