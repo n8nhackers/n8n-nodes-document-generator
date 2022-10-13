@@ -183,7 +183,7 @@ If you have any issues, please [let us know on GitHub](https://github.com/n8nhac
 
 # About
 
-Nodes by [automatewithn8n.com](https://automatewithn8n.com). For productive use and consulting on this, [contact us please](mailto:contact@n8nhackers.com).
+Nodes by [n8nhackers.com](https://n8nhackers.com). For productive use and consulting on this, [contact us please](mailto:contact@n8nhackers.com).
 
 Special thanks to [N8n nodemation](https://n8n.io) workflow automation by Jan Oberhauser.
 
