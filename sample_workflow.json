@@ -102,7 +102,7 @@
         },
         "id": "d5274ba2-5910-4630-a8c2-441dbcaa9f94",
         "name": "One item per template",
-        "type": "CUSTOM.documentGenerator",
+        "type": "n8n-nodes-document-generator.documentGenerator",
         "typeVersion": 1,
         "position": [
           1560,
@@ -116,7 +116,7 @@
         },
         "id": "92501623-5eb2-4eb5-9e92-063b0cb6d330",
         "name": "All items, one template",
-        "type": "CUSTOM.documentGenerator",
+        "type": "n8n-nodes-document-generator.documentGenerator",
         "typeVersion": 1,
         "position": [
           1560,
