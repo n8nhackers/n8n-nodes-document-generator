@@ -143,8 +143,8 @@ Please, check the [official page](https://handlebarsjs.com/guide/expressions.htm
 
 Clone the n8n-nodes-document-generator repository and execute:
 ```
-# Use v16.17.0 = lts/gallium
-nvm use lts/gallium
+# Use v20.12.2 = lts/iron
+nvm use lts/iron
 
 # Install dependencies
 npm install
@@ -158,19 +158,17 @@ npm link
 
 Create an N8N installation and add the n8n-nodes-document-generator to it:
 ```
-# Create an N8N installation
-cd .. 
-mkdir n8n_install
-cd n8n_install
-npm init
-npm install
-npm install n8n
+# Ensure that custom nodes directory exists in your .n8n
+mkdir ~/.n8n/custom
+
+# Init npm packages (intro to all questions)
+cd ~/.n8n/custom && npm init
 
 # "Install" the locally published module
 npm link n8n-nodes-document-generator
 
 # Start n8n
-npx n8n
+n8n start
 ```
 
 # Contribution

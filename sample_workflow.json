@@ -111,6 +111,7 @@
       },
       {
         "parameters": {
+          "oneTemplate": true,
           "template": "<html>\n    <head>\n    \n</head>\n<body>\n    New customers in last 24h:\n    <ul id=\\\"customer_list\\\">\n      {{#each items}}\n      <li>{{name}}: {{email}}</li>\n      {{/each}}\n</ul>\n</body>\n</html>"
         },
         "id": "92501623-5eb2-4eb5-9e92-063b0cb6d330",
@@ -201,9 +202,11 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "versionId": "cd464445-e9d8-46ca-b923-438fe42b59ac",
+    "versionId": "4c00b440-aa3a-4544-a139-d892c5293b8e",
     "meta": {
-      "templateCredsSetupCompleted": true
+      "templateCredsSetupCompleted": true,
+      "instanceId": "5616c2c57283090978141726380fa7ea68024a414bc9c9120f860835cc0e7dc2"
     },
+    "id": "uzNw8qOk8HybeIUw",
     "tags": []
   }
