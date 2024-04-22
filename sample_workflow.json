@@ -1,0 +1,209 @@
+{
+    "name": "Generate dynamic contents for EMAILS or HTML pages",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "880dcc94-8b97-44f0-bc7d-06663cab81a8",
+        "name": "On clicking 'execute'",
+        "type": "n8n-nodes-base.manualTrigger",
+        "position": [
+          580,
+          440
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "operation": "getAllPeople",
+          "returnAll": true
+        },
+        "id": "1aeed2e9-c464-4f7b-a5dd-ef8d0b3f8884",
+        "name": "Customer Datastore",
+        "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+        "position": [
+          900,
+          440
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "operation": "sort",
+          "sortFieldsUi": {
+            "sortField": [
+              {
+                "fieldName": "name"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "18c1bc4c-5330-41ea-8acb-2e2b197bd0fa",
+        "name": "Item Lists",
+        "type": "n8n-nodes-base.itemLists",
+        "position": [
+          1120,
+          440
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "functionCode": "item.lines = [\n  {\n    concept: \"Service\",\n    description: \"Design of HTML banners\",\n    quantity: 1,\n    amount: 22,\n    vat: 22 * 0.21,\n    total: 22 * 1.21\n  },\n  {\n    concept: \"Service\",\n    description: \"Design of PNG banners\",\n    quantity: 1,\n    amount: 33,\n    vat: 33 * 0.21,\n    total: 33 * 1.21\n  }\n]\n\nitem.date = \"2022-01-12\";\nitem.total = 133.10;\n\nreturn item;"
+        },
+        "id": "81c7d115-303f-45f8-92c9-a3b8aa352e1b",
+        "name": "Add lines",
+        "type": "n8n-nodes-base.functionItem",
+        "position": [
+          1340,
+          300
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "fromEmail": "mcolomer@n8nhackers.com",
+          "toEmail": "mcolomer@n8nhackers.com",
+          "subject": "=Invoice for {{ $node[\"Add lines\"].json[\"name\"] }}",
+          "html": "={{ $json[\"text\"] }}",
+          "options": {}
+        },
+        "id": "910485cc-22e4-444b-bc0f-082ea02c1d73",
+        "name": "Send one TEXT email per item",
+        "type": "n8n-nodes-base.emailSend",
+        "position": [
+          1780,
+          300
+        ],
+        "typeVersion": 1,
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "fromEmail": "mcolomer@n8nhackers.com",
+          "toEmail": "mcolomer@n8nhackers.com",
+          "subject": "New customers",
+          "html": "={{ $json[\"text\"] }}",
+          "options": {}
+        },
+        "id": "f3550ed4-d044-4c0a-a9ba-fb384565a21f",
+        "name": "Send one HTML Email per list",
+        "type": "n8n-nodes-base.emailSend",
+        "position": [
+          1780,
+          540
+        ],
+        "typeVersion": 1,
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "template": "Date: {{created}}\nTo: {{name}} <{{email}}>\nAddress: {{country}}\nDetails:\n{{#each lines}}\n- \\\"{{description}}\\\" x {{quantity}} = {{amount}}€ + {{vat}}€ = {{total}}€\n{{/each}}\nTotal invoice: {{total}}€"
+        },
+        "id": "d5274ba2-5910-4630-a8c2-441dbcaa9f94",
+        "name": "One item per template",
+        "type": "CUSTOM.documentGenerator",
+        "typeVersion": 1,
+        "position": [
+          1560,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "template": "<html>\n    <head>\n    \n</head>\n<body>\n    New customers in last 24h:\n    <ul id=\\\"customer_list\\\">\n      {{#each items}}\n      <li>{{name}}: {{email}}</li>\n      {{/each}}\n</ul>\n</body>\n</html>"
+        },
+        "id": "92501623-5eb2-4eb5-9e92-063b0cb6d330",
+        "name": "All items, one template",
+        "type": "CUSTOM.documentGenerator",
+        "typeVersion": 1,
+        "position": [
+          1560,
+          540
+        ]
+      }
+    ],
+    "pinData": {},
+    "connections": {
+      "On clicking 'execute'": {
+        "main": [
+          [
+            {
+              "node": "Customer Datastore",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Item Lists": {
+        "main": [
+          [
+            {
+              "node": "Add lines",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "All items, one template",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Customer Datastore": {
+        "main": [
+          [
+            {
+              "node": "Item Lists",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Add lines": {
+        "main": [
+          [
+            {
+              "node": "One item per template",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "One item per template": {
+        "main": [
+          [
+            {
+              "node": "Send one TEXT email per item",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "All items, one template": {
+        "main": [
+          [
+            {
+              "node": "Send one HTML Email per list",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "versionId": "cd464445-e9d8-46ca-b923-438fe42b59ac",
+    "meta": {
+      "templateCredsSetupCompleted": true
+    },
+    "tags": []
+  }

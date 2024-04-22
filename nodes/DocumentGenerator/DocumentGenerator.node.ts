@@ -15,7 +15,7 @@ import {
 export class DocumentGenerator implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'DocumentGenerator',
-    name: 'DocumentGenerator',
+    name: 'documentGenerator',
     icon: 'file:DocumentGenerator.svg',
     group: ['transform'],
     version: 1,

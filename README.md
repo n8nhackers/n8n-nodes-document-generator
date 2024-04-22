@@ -11,7 +11,7 @@ If you have any questions or remarks please [contact me](mailto:contact@n8nhacke
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
 ## TL;DR
-Don't want to read? Import the sample workflow [Generate dynamic contents for EMAILS or HTML pages](https://app.n8n.io/workflows/1790) to test this node with random samples.
+Don't want to read? Import the sample workflow [Generate dynamic contents for EMAILS or HTML pages](https://n8n.io/workflows/1790-generate-dynamic-contents-for-emails-or-html-pages/) to test this node with random samples. 
 ![Generate dynamic contents for EMAILS or HTML pages](images/workflow-sample.jpeg?raw=true "Generate dynamic contents for EMAILS or HTML pages")
 
 ## Installation
