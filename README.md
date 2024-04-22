@@ -159,7 +159,7 @@ npm link
 Create an N8N installation and add the n8n-nodes-document-generator to it:
 ```
 # Create an N8N installation
-cd ..
+cd .. 
 mkdir n8n_install
 cd n8n_install
 npm init
