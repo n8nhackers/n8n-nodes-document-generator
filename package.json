@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-document-generator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": {
     "name": "Miquel Colomer",
     "email": "miquel@n8nhackers.com"
@@ -75,7 +75,6 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@jaredwray/fumanchu": "^1.2.1",
-    "iconv-lite": "^0.6.3"
+    "@jaredwray/fumanchu": "^1.2.1"
   }
 }

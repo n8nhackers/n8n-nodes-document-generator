@@ -1,5 +1,4 @@
 import * as Handlebars from 'handlebars';
-//import * as iconv from 'iconv-lite';
 import { IExecuteFunctions } from 'n8n-core';
 import {
   IBinaryKeyData,
@@ -136,62 +135,7 @@ export class DocumentGenerator implements INodeType {
         default: '',
         placeholder: 'text',
         description: 'The output property name where we save rendered text',
-      },
-      /*
-      {
-        displayName: 'Generate Binary',
-        name: 'binary',
-        type: 'boolean',
-        default: false, // Initial state of the toggle
-        description: 'Whether to generate a binary entry with the rendered template',
-        displayOptions: {
-          // the resources and operations to display this element with
-          show: {
-            operation: ['render'],
-          },
-        },
-      },
-      {
-        displayName: 'File Type',
-        name: 'fileType',
-        type: 'options',
-        options: [
-          {
-            name: 'HTML',
-            value: 'html',
-            description: 'Generates an HTML binary entry',
-            action: 'Generates an HTML binary entry',
-          },
-          {
-            name: 'TEXT',
-            value: 'text',
-            description: 'Generates an TEXT binary entry',
-            action: 'Generates an TEXT binary entry',
-          },
-          /*
-          {
-            name: 'PDF',
-            value: 'pdf',
-            description: 'Generates a PDF binary entry',
-            action: 'Generates a PDF binary entry',
-          },
-          {
-            name: 'PNG',
-            value: 'png',
-            description: 'Generates a PNG binary entry',
-            action: 'Generates a PNG binary entry',
-          },
-        ],
-        displayOptions: {
-          // the resources and operations to display this element with
-          show: {
-            binary: [true],
-          },
-        },
-        default: 'html',
-        noDataExpression: true,
-        required: true,
-      },*/
+      }
     ],
   };
   // The execute method will go here
@@ -239,21 +183,6 @@ export class DocumentGenerator implements INodeType {
           // Get additional fields input
           var rendered = templateHelper(item.json);
           newItemJson[key] = rendered;
-          /*
-          var filename = 'file.html';
-          var mime = 'text/html';
-          if (fileType === 'text') {
-            filename = 'file.txt';
-            mime = 'text/plain';
-          }
-
-          if (binary) {
-            newItemBinary.data = await this.helpers.prepareBinaryData(
-              iconv.encode(rendered, 'utf8'),
-              filename,
-              mime,
-            );
-          }*/
           returnData.push({
             json: newItemJson,
             pairedItem: {
