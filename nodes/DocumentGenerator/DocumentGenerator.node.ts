@@ -159,7 +159,6 @@ export class DocumentGenerator implements INodeType {
       const templateURL = this.getNodeParameter('templateURL', 0) as string;
       template = await this.helpers.request(templateURL);
     }
-    helpers({ handlebars }, {});
 
     const templateHelper = handlebars.compile(template);
 
