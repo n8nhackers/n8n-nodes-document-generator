@@ -36,7 +36,7 @@ The node can solve multiple use cases when creating content like:
 
 The sky is your limit!
 
-Just follow the next samples to create your dynamic content and forget to use SET, FUNCTION, or FUNCTION ITEM nodes.
+Just follow the next samples to create your dynamic content and forget to use SET, CODE nodes.
 
 ### All input items in one template
 
