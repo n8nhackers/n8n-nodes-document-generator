@@ -24,7 +24,7 @@ This node was developed and tested with version 0.193.5 of n8n.
 
 ## Dependencies
 If you install this node, n8n will install automatically the next extra npm packages:
-* handlebars: required to work with Handlebars templates
+* [@jaredwray/fumanchu](https://www.npmjs.com/package/@jaredwray/fumanchu): this new Handlebars replacement provides Handlebars + Helpers Together.
 
 ## Usage
 The node can solve multiple use cases when creating content like:
@@ -32,6 +32,7 @@ The node can solve multiple use cases when creating content like:
 * Static HTML pages
 * WordPress posts
 * Telegram/Slack messages
+* Use helpers to filter templates
 
 The sky is your limit!
 
@@ -49,11 +50,13 @@ Supposing that you have a customer list in JSON:
 [
 	{
 		"email": "miquel@n8nhackers.com",
-		"name": "Miquel"
+		"name": "Miquel",
+		"owner": true
 	},
 	{
 		"email": "contact@n8nhackers.com",
-		"name": "Contact"
+		"name": "Contact",
+		"owner": false
 	}
 ]
 ```
@@ -62,7 +65,7 @@ You need to use this template:
 ```
 <ul id="customer_list">
   {{#each items}}
-  <li>{{name}}: {{email}}</li>
+  <li>{{name}}: {{email}} {{#if (eq owner true)}}(owner){{/if}}</li>
   {{/each}}
 </ul>
 ```
@@ -133,6 +136,9 @@ Total invoice: 133.10€
 ```
 
 I recommend using this method if you want to send multiple invoices.
+
+## Helpers
+Now the node supports helpers to filter
 
 ## Doubts about templates syntax
 Please, check the [official page](https://handlebarsjs.com/guide/expressions.html#basic-usage) to review all the existing expressions in Handlebars.

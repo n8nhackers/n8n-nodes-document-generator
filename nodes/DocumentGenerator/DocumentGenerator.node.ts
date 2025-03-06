@@ -1,4 +1,4 @@
-import {helpers, handlebars} from '@jaredwray/fumanchu';
+import { handlebars, helpers } from '@jaredwray/fumanchu';
 import { IExecuteFunctions } from 'n8n-core';
 import {
   IBinaryKeyData,
