@@ -1,4 +1,4 @@
-import * as Handlebars from 'handlebars';
+import {helpers, handlebars} from '@jaredwray/fumanchu';
 import { IExecuteFunctions } from 'n8n-core';
 import {
   IBinaryKeyData,
@@ -159,8 +159,9 @@ export class DocumentGenerator implements INodeType {
       const templateURL = this.getNodeParameter('templateURL', 0) as string;
       template = await this.helpers.request(templateURL);
     }
+    helpers({ handlebars }, {});
 
-    const templateHelper = Handlebars.compile(template);
+    const templateHelper = handlebars.compile(template);
 
     let key = 'text';
     if (customOutputKey) {
