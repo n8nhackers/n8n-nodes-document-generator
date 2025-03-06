@@ -51,21 +51,23 @@ Supposing that you have a customer list in JSON:
 	{
 		"email": "miquel@n8nhackers.com",
 		"name": "Miquel",
-		"owner": true
+		"primary": true
 	},
 	{
 		"email": "contact@n8nhackers.com",
 		"name": "Contact",
-		"owner": false
+		"primary": false
 	}
 ]
 ```
 
-You need to use this template:
+We will try a Handlebars helper #if to show if the contact is the primary email or not.
+
+If you use the next template:
 ```
 <ul id="customer_list">
   {{#each items}}
-  <li>{{name}}: {{email}} {{#if (eq owner true)}}(owner){{/if}}</li>
+  <li>{{name}}: {{email}} {{#if (eq primary true)}}(primary){{/if}}</li>
   {{/each}}
 </ul>
 ```
@@ -73,7 +75,7 @@ You need to use this template:
 And you will get the next output to send by email in HTML format:
 ```
 <ul id="customer_list">
-<li>Miquel: miquel@n8nhackers.com</li>
+<li>Miquel: miquel@n8nhackers.com (primary)</li>
 <li>Contact: contact@n8nhackers.com</li>
 </ul>
 ```
@@ -138,7 +140,9 @@ Total invoice: 133.10€
 I recommend using this method if you want to send multiple invoices.
 
 ## Helpers
-Now the node supports helpers to filter
+Now the node supports helpers thanks to the [@jaredwray/fumanchu](https://www.npmjs.com/package/@jaredwray/fumanchu#helpers) package. 
+
+We recommend checking 
 
 ## Doubts about templates syntax
 Please, check the [official page](https://handlebarsjs.com/guide/expressions.html#basic-usage) to review all the existing expressions in Handlebars.
