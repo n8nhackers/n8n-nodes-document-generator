@@ -6,7 +6,7 @@ This is an n8n community node. It helps you to create:
 * One dynamic content per all input items.
 * One dynamic content per input item.
 
-If you have any questions or remarks please [contact me](mailto:contact@n8nhackers.com).
+If you have any questions or remarks please [contact me](mailto:support@n8nhackers.com).
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -54,7 +54,7 @@ Supposing that you have a customer list in JSON:
 		"primary": true
 	},
 	{
-		"email": "contact@n8nhackers.com",
+		"email": "support@n8nhackers.com",
 		"name": "Contact",
 		"primary": false
 	}
@@ -76,7 +76,7 @@ And you will get the next output to send by email in HTML format:
 ```
 <ul id="customer_list">
 <li>Miquel: miquel@n8nhackers.com (primary)</li>
-<li>Contact: contact@n8nhackers.com</li>
+<li>Contact: support@n8nhackers.com</li>
 </ul>
 ```
 
@@ -183,7 +183,7 @@ n8n start
 
 # Contribution
 
-To make this node even better, please let us know, [how you use it](mailto:contact@n8nhackers.com). Commits are always welcome.
+To make this node even better, please let us know, [how you use it](mailto:support@n8nhackers.com). Commits are always welcome.
 
 # Issues
 
@@ -191,7 +191,7 @@ If you have any issues, please [let us know on GitHub](https://github.com/n8nhac
 
 # About
 
-Nodes by [n8nhackers.com](https://n8nhackers.com). For productive use and consulting on this, [contact us please](mailto:contact@n8nhackers.com).
+Nodes by [n8nhackers.com](https://n8nhackers.com). For productive use and consulting on this, [contact us please](mailto:support@n8nhackers.com).
 
 Special thanks to [N8n nodemation](https://n8n.io) workflow automation by Jan Oberhauser.
 
