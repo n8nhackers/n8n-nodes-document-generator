@@ -1,5 +1,15 @@
+#!/bin/bash
+
 export N8N_LOG_LEVEL=debug
 export N8N_LOG_FILE_LOCATION=n8n.log
+
+yarn install
+
+# # Load nvm if available.
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# # ./NVM_DIR/nvm.sh use
 
 if [ ! -d "$HOME/.n8n/custom" ]; then
     mkdir -p "$HOME/.n8n/custom"
@@ -13,11 +23,6 @@ if [ ! -d "$HOME/.n8n/custom/node_modules/n8n-nodes-document-generator" ]; then
     yarn build && npm link
     cd "$HOME/.n8n/custom/node_modules" || exit
     npm link n8n-nodes-document-generator
-fi
-
-if ! command -v npm &> /dev/null; then
-    echo "npm command not found. Please install with nvm following https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating"
-    exit 1
 fi
 
 #exists n8n binary?
