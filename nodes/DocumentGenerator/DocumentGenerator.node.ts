@@ -1,12 +1,14 @@
 import { handlebars, helpers } from '@jaredwray/fumanchu';
-import { IExecuteFunctions } from 'n8n-core';
-import {
+import type { IExecuteFunctions } from 'n8n-core';
+import type {
   IBinaryKeyData,
   IDataObject,
   INodeExecutionData,
   INodeType,
   INodeTypeDescription,
 } from 'n8n-workflow';
+import { NodeOperationError } from 'n8n-workflow';
+import * as vm from 'vm';
 
 /**
  * A node which allows you to generate documents by templates.
@@ -109,6 +111,83 @@ export class DocumentGenerator implements INodeType {
           'The template URL to use for rendering. Please check the <a href="https://handlebarsjs.com/guide/expressions.html#basic-usage">official page</a> for Handlebars syntax.',
       },
       {
+        displayName: 'Use Custom Helpers',
+        name: 'useCustomHelpers',
+        type: 'boolean',
+        default: false,
+        description: 'Whether to use custom Handlebars helpers',
+        displayOptions: {
+          show: {
+            operation: ['render'],
+          },
+        },
+      },
+      {
+        displayName: 'Helpers Source',
+        name: 'helpersSource',
+        type: 'options',
+        options: [
+          {
+            name: 'From Field',
+            value: 'field',
+            description: 'Provide helpers code directly in a field',
+          },
+          {
+            name: 'From URL',
+            value: 'url',
+            description: 'Load helpers from a URL',
+          },
+        ],
+        default: 'field',
+        displayOptions: {
+          show: {
+            useCustomHelpers: [true],
+          },
+        },
+      },
+      {
+        displayName: 'Custom Helpers Code',
+        name: 'helpersCode',
+        type: 'string',
+        required: true,
+        typeOptions: {
+          rows: 10,
+          alwaysOpenEditWindow: true,
+        },
+        displayOptions: {
+          show: {
+            useCustomHelpers: [true],
+            helpersSource: ['field'],
+          },
+        },
+        default: '',
+        placeholder: `// Example helpers
+module.exports = {
+  uppercase: function(str) {
+    return str.toUpperCase();
+  },
+  formatDate: function(date) {
+    return new Date(date).toLocaleDateString();
+  }
+};`,
+        description: 'JavaScript code that exports an object with helper functions. Each property should be a function that can be used in templates.',
+      },
+      {
+        displayName: 'Helpers URL',
+        name: 'helpersURL',
+        type: 'string',
+        required: true,
+        displayOptions: {
+          show: {
+            useCustomHelpers: [true],
+            helpersSource: ['url'],
+          },
+        },
+        default: '',
+        placeholder: 'https://mydomain.com/helpers/custom-helpers.js',
+        description: 'URL to a JavaScript file that exports an object with helper functions',
+      },
+      {
         displayName: 'Define a Custom Output Key',
         name: 'customOutputKey',
         type: 'boolean',
@@ -135,7 +214,7 @@ export class DocumentGenerator implements INodeType {
         default: '',
         placeholder: 'text',
         description: 'The output property name where we save rendered text',
-      }
+      },
     ],
   };
   // The execute method will go here
@@ -159,7 +238,72 @@ export class DocumentGenerator implements INodeType {
       const templateURL = this.getNodeParameter('templateURL', 0) as string;
       template = await this.helpers.request(templateURL);
     }
+
+    // Initialize default helpers
     helpers({ handlebars }, {});
+
+    // Load custom helpers if enabled
+    const useCustomHelpers = this.getNodeParameter('useCustomHelpers', 0) as boolean;
+    if (useCustomHelpers) {
+      try {
+        const helpersSource = this.getNodeParameter('helpersSource', 0) as string;
+        let helpersCode = '';
+
+        if (helpersSource === 'field') {
+          helpersCode = this.getNodeParameter('helpersCode', 0) as string;
+        } else if (helpersSource === 'url') {
+          const helpersURL = this.getNodeParameter('helpersURL', 0) as string;
+          helpersCode = await this.helpers.request(helpersURL);
+        }
+
+        if (helpersCode.trim()) {
+          // Create a safe execution context
+          const sandbox = {
+            module: { exports: {} },
+            exports: {},
+            require: require, // Allow require for basic Node.js modules
+            console: console,
+            Buffer: Buffer,
+            setTimeout: setTimeout,
+            clearTimeout: clearTimeout,
+            setInterval: setInterval,
+            clearInterval: clearInterval,
+          };
+
+          // Execute the helpers code in the sandbox
+          vm.createContext(sandbox);
+          vm.runInContext(helpersCode, sandbox, {
+            timeout: 5000, // 5 second timeout
+            displayErrors: true,
+          });
+
+          // Extract the exported helpers
+          const customHelpers = sandbox.module.exports || sandbox.exports;
+
+          if (typeof customHelpers === 'object' && customHelpers !== null) {
+            // Register each helper with handlebars
+            Object.keys(customHelpers).forEach((helperName) => {
+              const helper = (customHelpers as Record<string, unknown>)[helperName];
+              if (typeof helper === 'function') {
+                handlebars.registerHelper(helperName, helper as (context?: unknown, ...args: unknown[]) => unknown);
+              }
+            });
+          } else {
+            throw new NodeOperationError(
+              this.getNode(),
+              'Custom helpers must export an object with helper functions',
+              { itemIndex: 0 }
+            );
+          }
+        }
+      } catch (error) {
+        throw new NodeOperationError(
+          this.getNode(),
+          `Failed to load custom helpers: ${error.message}`,
+          { itemIndex: 0 }
+        );
+      }
+    }
 
     const templateHelper = handlebars.compile(template);
 
@@ -169,20 +313,20 @@ export class DocumentGenerator implements INodeType {
     }
     
     if (oneTemplate) {
-      var cleanedItems = items.map(function (item) {
+      const cleanedItems = items.map((item) => {
         return item.json;
       });
-      let newItemJson: IDataObject = {};
+      const newItemJson: IDataObject = {};
       newItemJson[key] = templateHelper({ items: cleanedItems });
       returnData.push({ json: newItemJson });
     } else {
       for (let i = 0; i < items.length; i++) {
-        let item = items[i];
+        const item = items[i];
         if (operation === 'render') {
-          let newItemJson: IDataObject = {};
+          const newItemJson: IDataObject = {};
           // Get email input
           // Get additional fields input
-          var rendered = templateHelper(item.json);
+          const rendered = templateHelper(item.json);
           newItemJson[key] = rendered;
           returnData.push({
             json: newItemJson,
