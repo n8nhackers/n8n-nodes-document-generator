@@ -33,6 +33,8 @@ The node can solve multiple use cases when creating content like:
 * WordPress posts
 * Telegram/Slack messages
 * Use helpers to filter templates
+* Create custom helpers for business-specific logic
+* Dynamic content generation with complex data transformations
 
 The sky is your limit!
 
@@ -140,9 +142,109 @@ Total invoice: 133.10€
 I recommend using this method if you want to send multiple invoices.
 
 ## Helpers
-Now the node supports helpers thanks to the [@jaredwray/fumanchu](https://www.npmjs.com/package/@jaredwray/fumanchu#helpers) package. 
 
-We recommend checking 
+The node supports both built-in helpers and custom helpers thanks to the [@jaredwray/fumanchu](https://www.npmjs.com/package/@jaredwray/fumanchu#helpers) package.
+
+### Built-in Helpers
+The node includes a comprehensive set of built-in helpers for common operations like date formatting, string manipulation, comparisons, and more. Check the [fumanchu helpers documentation](https://www.npmjs.com/package/@jaredwray/fumanchu#helpers) for a complete list.
+
+### Custom Helpers
+You can now define your own custom Handlebars helpers to extend the templating functionality. This feature allows you to:
+- Create reusable functions for complex data transformations
+- Implement business-specific logic directly in templates
+- Load helpers from external sources for better code organization
+
+#### Enabling Custom Helpers
+1. Check the **"Use Custom Helpers"** option in the node configuration
+2. Choose your helpers source:
+   - **From Field**: Write JavaScript code directly in the node
+   - **From URL**: Load helpers from an external JavaScript file
+
+#### Custom Helpers Format
+Your custom helpers should be defined as a JavaScript module that exports an object with helper functions:
+
+```javascript
+module.exports = {
+  // String manipulation helpers
+  uppercase: function(str) {
+    return str.toUpperCase();
+  },
+  
+  capitalize: function(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  },
+  
+  // Date formatting helpers
+  formatDate: function(date, format) {
+    const d = new Date(date);
+    if (format === 'short') {
+      return d.toLocaleDateString();
+    }
+    return d.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  },
+  
+  // Math helpers
+  multiply: function(a, b) {
+    return a * b;
+  },
+  
+  percentage: function(value, total) {
+    return ((value / total) * 100).toFixed(2) + '%';
+  },
+  
+  // Conditional helpers
+  isEven: function(number) {
+    return number % 2 === 0;
+  },
+  
+  // Array helpers
+  joinWithComma: function(array) {
+    return array.join(', ');
+  }
+};
+```
+#### Loading Helpers from URL
+For better code organization, you can host your helpers in an external JavaScript file:
+
+```javascript
+// https://mydomain.com/helpers/custom-helpers.js
+module.exports = {
+  formatCurrency: function(amount, currency = 'EUR') {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency
+    }).format(amount);
+  },
+  
+  slugify: function(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+};
+```
+
+Then use the URL in the node configuration: `https://mydomain.com/helpers/custom-helpers.js`
+
+#### Security and Limitations
+- Custom helpers run in a sandboxed environment for security
+- Execution timeout is set to 5 seconds to prevent infinite loops
+- Basic Node.js modules are available (console, Buffer, setTimeout, etc.)
+- Helper functions should be pure functions without side effects for best results
+
+#### Error Handling
+If there are issues with your custom helpers:
+- Syntax errors in the JavaScript code will be reported
+- Invalid helper exports will show descriptive error messages
+- Network issues when loading from URL will be handled gracefully
+
+We recommend testing your helpers thoroughly before using them in production workflows 
 
 ## Doubts about templates syntax
 Please, check the [official page](https://handlebarsjs.com/guide/expressions.html#basic-usage) to review all the existing expressions in Handlebars.
